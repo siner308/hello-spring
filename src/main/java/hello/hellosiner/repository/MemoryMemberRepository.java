@@ -2,9 +2,11 @@ package hello.hellosiner.repository;
 
 import hello.hellosiner.domain.Member;
 import org.junit.jupiter.api.AfterEach;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
+@Repository
 public class MemoryMemberRepository implements MemberRepository {
 
     private static Map<Long, Member> store = new HashMap<>();
