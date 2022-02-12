@@ -1,25 +1,23 @@
 package hello.hellosiner;
 
 import hello.hellosiner.domain.Member;
-import hello.hellosiner.repository.JdbcMemberRepository;
-import hello.hellosiner.repository.JdbcTemplateMemberRepository;
-import hello.hellosiner.repository.MemberRepository;
-import hello.hellosiner.repository.MemoryMemberRepository;
+import hello.hellosiner.repository.*;
 import hello.hellosiner.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 @Configuration
 public class SpringConfig {
 
-    private DataSource dataSource;
+    private EntityManager em;
 
     @Autowired
-    public SpringConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public SpringConfig(EntityManager em) {
+        this.em = em;
     }
 
     @Bean
@@ -29,6 +27,6 @@ public class SpringConfig {
 
     @Bean
     public MemberRepository memberRepository() {
-        return new JdbcTemplateMemberRepository(this.dataSource);
+        return new JpaMemberRepository(this.em);
     }
 }
